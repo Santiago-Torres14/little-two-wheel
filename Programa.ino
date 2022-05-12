@@ -1,3 +1,7 @@
+#include "Motor.h"
+#include "Car.h"
+#include "Sensor.h"
+
 #define echoPin1 12 
 #define trigPin1 13
 #define echoPin2 10
@@ -13,27 +17,6 @@ enum Direction {
   LEFT = 0,
   RIGHT = 1
 };
-class Motor{
-  private:
-  int velocity;
-  int velocityPin;
-  Direction controlA;
-  Direction ControlB;
-  int controlPinA, controlPinB;
-  public:
-  motor(int velocity, int velocityPin, int controlPinA, int controlPinB){
-    this.velocity = velocity;
-    this.controlPinA = controlPinA;
-    this.controlPinB = controlPinB;
-    this.velocityPin = velocityPin      
-  }
-  void drive(int velocity, Direction controlA, Direction controlB){
-    digitalWrite(controlPinA,controlA); 
-    digitalWrite(controlPinB,controlB);    
-    analogWrite(velocityPin,velocity);
-  }
-  
-}
 
 void setup() {
   for(int i=0; i<3; i++){
