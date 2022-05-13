@@ -1,6 +1,6 @@
-#include "Motor.h"
-#include "Car.h"
-#include "Sensor.h"
+#include "./Motor.h"
+#include "./Car.h"
+#include "./Sensor.h"
 
 #define echoPin1 12 
 #define trigPin1 13
@@ -37,13 +37,4 @@ void loop() {
   }
   Serial.println("--------------------------");
   delay(500);
-}
-
-int catch_signal(int trigPin, int echoPin) {
-  digitalWrite(trigPin, LOW);  
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  return pulseIn(echoPin, HIGH) * 0.034 / 2;
 }

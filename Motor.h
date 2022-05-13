@@ -1,21 +1,22 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 
+#include <Arduino.h>
+
 class Motor
 {
-    private:
+private:
     int velocityPin_;
     int controlPinA_;
     int controlPinB_;
 
-    public:
+public:
     Motor(int vPin, int aPin, int bPin);
-    int getVelocityPin const ();
-    int getControlPinA const ();
-    int getControlPinB const ();
+    int getVelocityPin() const;
+    int getControlPinA() const;
+    int getControlPinB() const;
     void start();
     void stop();
-}
-
+};
 
 #endif
