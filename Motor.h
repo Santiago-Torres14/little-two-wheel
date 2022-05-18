@@ -15,7 +15,9 @@ public:
     int getVelocityPin() const;
     int getControlPinA() const;
     int getControlPinB() const;
-    void start();
+    void setVelocity(int velocity) const;
+    void drive();
+    void reverse();
     void stop();
 };
 
