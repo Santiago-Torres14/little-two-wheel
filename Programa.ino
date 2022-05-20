@@ -2,10 +2,13 @@
 #include "./Car.h"
 #include "./Sensor.h"
 
+// LEFT
 #define echoPin1 12
 #define trigPin1 13
+// CENTER
 #define echoPin2 10
 #define trigPin2 11
+// RIGHT
 #define echoPin3 3
 #define trigPin3 2
 
@@ -33,12 +36,83 @@ void setup()
 
 void loop()
 {
-  car.driveForward(70);
   for (int i = 0; i < 3; i++)
   {
-    if (sensors[i].catch_signal() >= 1 and sensors[i].catch_signal() <= 15 )
+    distance[i] = sensors[i].catch_signal();
+  }
+
+  // None of the sensors are capturing objects close to the car
+  if((distance[0] >= 15 || distance[0] == 0) && (distance[1] >= 20 || distance[1] == 0) && (distance[2] >= 15 || distance[2] == 0))
+  {
+    if(!car.getIsOn())
     {
+      car.driveForward(60);
+      delay(1000);
+    }
+  } else if (distance[0] >=1 && distance <= 15) // Left sensor
+  {
+    if(distance[1] >= 15 || distance[1] == 0)
+    {
+      if(!car.getIsOn()) // middle sensor
+      {
+        car.driveForward(60);
+        delay(1000);
+      }
+    } else { // Right sensor
+      if(!car.getIsOn()){
+        car.driveBackward(50);
+        delay(1000);
+        car.turnRight(60);
+        delay(1000);
+        car.stopCar();
+        delay(1000);
+      }
+    }
+  } else if(distance[2] >= 1 && distance[2] <= 15) // Right sensor 
+  {
+    if(distance[1] >= 15 || distance[1] == 0)
+    {
+      if(!car.getIsOn())
+      {
+        car.driveForward(60);
+        delay(1000);
+      }
+    } else {
+      car.driveBackward(50);
+      delay(1000);
+      car.turnLeft(60);
+      delay(1000);
       car.stopCar();
+      delay(1000);
+    }
+  } else if (distance[1] >= 1 && distance[1] <= 15) // middle sensor 
+  {
+    if(distance[0] >= 15 || distance[0] == 0)
+    {
+      if(!car.getIsOn())
+      {
+        car.driveBackward(50);
+        delay(1000);
+        car.turnLeft(60);
+        delay(1000);
+        car.stopCar(1000);
+        delay(1000);
+      }
+    } else {
+      car.driveBackward(50);
+      delay(1000);
+      car.turnRight(60);
+      delay(1000);
+      car.stopCar();
+      delay(1000);
+    }
+  } else {
+    if (!car.getIsOn()){
+      car.driveBackward(50);
+      delay(1000);
+      car.stopCar();
+      delay(1000);
     }
   }
+  
 }
